@@ -1,0 +1,27 @@
+$mainColor:#ff0000;
+
+.red {
+    color: $mainColor;
+}
+
+@mixin 함수() {
+    background-color: #eeeeee;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto; 
+}
+
+.my-alert {
+    @include 함수();
+}
+
+.my-alert-red {
+    @extend .my-alert;
+    background-color: #ffe591;
+}
+
+.my-alert p {
+    margin-bottom: 0px;
+}
