@@ -68,19 +68,20 @@ function App() {
           <button className="btn btn-primary" onClick={()=>{
             axios.get('https://codingapple1.github.io/shop/data2.json') // 브라우저 url 창에 url 입력하면 요청하는 데이터 확인 가능
             .then((result)=>{
-              console.log(result.data);
+              setShoes([...shoes, ...result.data]);
             }) 
             .catch(()=>{
               console.log('fail');
             }); // ajax 요청이 실패했을 경우 실행할 코드
-          }}>더보기</button>
+          }}>
+            더보기
+          </button>
         </div>
     </Route>
 
     <Route path="/detail/:id">
       <Detail shoes={shoes}></Detail>
     </Route>
-
     </Switch>
   </div>
   );
