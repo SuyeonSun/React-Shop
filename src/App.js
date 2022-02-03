@@ -5,6 +5,7 @@ import { Navbar, Container, Nav, NavDropdown, } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js'
 import Detail from './Detail';
+import axios from 'axios';
 
 import {Link, Route, Switch} from 'react-router-dom';
 
@@ -44,11 +45,11 @@ function App() {
       <Switch>
       <Route exact path="/">
         {/* Jumbotron */}
-        <div class="background">
-          <div class="container p-5">
-            <h1 class="display-4 fw-bold">Welcome to Admin Dashboard</h1>
+        <div className="background">
+          <div className="container p-5">
+            <h1 className="display-4 fw-bold">Welcome to Admin Dashboard</h1>
               <p>Go to My Website</p>
-              <a href="#" class="btn btn-primary">link</a>
+              <a href="#" className="btn btn-primary">link</a>
           </div>
         </div>
 
@@ -63,6 +64,16 @@ function App() {
               })
             }
           </div>
+          {/* 더보기 버튼 */}
+          <button className="btn btn-primary" onClick={()=>{
+            axios.get('https://codingapple1.github.io/shop/data2.json') // 브라우저 url 창에 url 입력하면 요청하는 데이터 확인 가능
+            .then((result)=>{
+              console.log(result.data);
+            }) 
+            .catch(()=>{
+              console.log('fail');
+            }); // ajax 요청이 실패했을 경우 실행할 코드
+          }}>더보기</button>
         </div>
     </Route>
 
