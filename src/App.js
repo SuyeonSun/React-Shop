@@ -12,6 +12,7 @@ import {Link, Route, Switch} from 'react-router-dom';
 function App() {
 
   let [shoes, setShoes] = useState(Data);
+  let [stock, setStock] = useState([10, 11, 12]); // 재고
 
   return (
     <div className="App">
@@ -80,7 +81,7 @@ function App() {
     </Route>
 
     <Route path="/detail/:id">
-      <Detail shoes={shoes}></Detail>
+      <Detail shoes={shoes} stock={stock} setStock={setStock}></Detail>
     </Route>
     </Switch>
   </div>
