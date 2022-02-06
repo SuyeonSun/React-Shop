@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navbar, Container, Nav, NavDropdown, } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js'
@@ -8,6 +8,9 @@ import Detail from './Detail';
 import axios from 'axios';
 
 import {Link, Route, Switch} from 'react-router-dom';
+
+let stockContext = React.createContext();
+
 
 function App() {
 
@@ -56,15 +59,18 @@ function App() {
 
         {/* 상품 */}
         <div className="container">
+        <stockContext.Provider value={stock}>
           <div className="row">
             {
               shoes.map((element, i) => {
                 return (
-                  <Card shoes={shoes[i]} i={i} key={i}/>
+                  <Card shoes={shoes[i]} i={i} key={i}/> // Card 컴포넌트는 stock을 자유롭게 사용 가능
                 )
               })
             }
           </div>
+          </stockContext.Provider>
+
           {/* 더보기 버튼 */}
           <button className="btn btn-primary" onClick={()=>{
             axios.get('https://codingapple1.github.io/shop/data2.json') // 브라우저 url 창에 url 입력하면 요청하는 데이터 확인 가능
@@ -89,13 +95,23 @@ function App() {
 }
 
 function Card (props) {
+  let stock = useContext(stockContext);
   return (
       <div className="col-md-4">
           <img src={`https://codingapple1.github.io/shop/shoes`+(props.i + 1)+`.jpg`} 
           width="100%" />
           <h4>{props.shoes.title}</h4>
           <p>{props.shoes.content} & {props.shoes.price}</p>
+          {/* {stock[props.i]} */} 
+          <Test></Test>
       </div>
+  )
+}
+
+function Test() {
+  let stock = useContext(stockContext);
+  return (
+    <p> 재고 : {stock} </p>
   )
 }
 
