@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
+import { Nav, } from 'react-bootstrap';
+import {CSSTransition} from 'react-transition-group';
 
 let 박스 = styled.div`
     padding: 20px;
@@ -13,7 +15,6 @@ let 제목 = styled.h4`
 `;
 
 function Detail(props) {
-
     let [inputData, setInputData] = useState('');
 
     let [alert, setAlert] = useState(true);
@@ -30,6 +31,8 @@ function Detail(props) {
     let 찾은상품 = props.shoes.find(function(shoe){
         return shoe.id == id
     });
+
+    let [tab, setTab] = useState(0);
 
     return (
       <div className="container">
@@ -70,8 +73,27 @@ function Detail(props) {
             }}>뒤로가기</button>
           </div>
         </div>
+
+        <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+            <Nav.Item>
+                <Nav.Link eventKey="link-0" onClick={() => {setTab(0)}}>Option 2</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link eventKey="link-1" onClick={() => {setTab(1)}}>Disabled</Nav.Link>
+            </Nav.Item>
+        </Nav>
+        <TabContent tab={tab}></TabContent>
     </div> 
     )
+}
+
+function TabContent(props) {
+    if (props.tab === 0) {
+        return <div>0번째 내용입니다.</div>
+    }
+    else if (props.tab === 1) {
+        return <div>1번째 내용입니다.</div>
+    }
 }
 
 function Info(props) {
