@@ -25,3 +25,12 @@ $mainColor:#ff0000;
 .my-alert p {
     margin-bottom: 0px;
 }
+
+.slow-enter {
+    opacity: 0;
+}
+
+.slow-enter-active {
+    opacity: 1;
+    transition: all 500ms;
+}

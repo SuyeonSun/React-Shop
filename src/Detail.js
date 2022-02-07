@@ -33,6 +33,7 @@ function Detail(props) {
     });
 
     let [tab, setTab] = useState(0);
+    let [tabswitch, setTabswitch] = useState(false);
 
     return (
       <div className="container">
@@ -76,18 +77,26 @@ function Detail(props) {
 
         <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
             <Nav.Item>
-                <Nav.Link eventKey="link-0" onClick={() => {setTab(0)}}>Option 2</Nav.Link>
+                <Nav.Link eventKey="link-0" onClick={() => {setTabswitch(false); setTab(0)}}>Option 2</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="link-1" onClick={() => {setTab(1)}}>Disabled</Nav.Link>
+                <Nav.Link eventKey="link-1" onClick={() => {setTabswitch(false); setTab(1)}}>Disabled</Nav.Link>
             </Nav.Item>
         </Nav>
-        <TabContent tab={tab}></TabContent>
+
+        {/* tab css */}
+        <CSSTransition in={tabswitch} classNames="slow" timeout={500}>
+            <TabContent tab={tab} setTabswitch={setTabswitch}></TabContent>
+        </CSSTransition>
     </div> 
     )
 }
 
 function TabContent(props) {
+    useEffect(() => {
+        props.setTabswitch(true);
+    });
+
     if (props.tab === 0) {
         return <div>0번째 내용입니다.</div>
     }
